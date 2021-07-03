@@ -28,21 +28,24 @@
     <bean id="ledgerConnector" class="dlt.load.balancer.model.LedgerConnector">
         <property name="ledgerReader" ref="ledgerReaderService"/>
         <property name="ledgerWriter" ref="ledgerWriterService"/>
-        <property name="deviceManager" ref="deviceManagerService"/>
         
     </bean>
+    
    
     
    
     <bean id="balancer" class="dlt.load.balancer.model.Balancer"
    		 init-method="start"
         destroy-method="stop">
-        <argument value="${TIMEOUT_LB_RESPONSE}"/>
+        <!-- <argument value="${TIMEOUT_LB_RESPONSE}"/>
         <argument value="${TIMEOUT_GATEWAY_RESPONSE}"/>
         <argument value="${ID_GATEWAY}"/>
-        <argument value="${TAG_GATEWAY}"/>
+        <argument value="${TAG_GATEWAY}"/> -->
+        <property name="connector" ref="ledgerConnector"/>
+        <property name="deviceManager" ref="deviceManagerService"/>
         
         
-        <property name="connector" ref="ledgerConnector"/>      
+        
+        
     </bean>   
 </blueprint>
